@@ -3,14 +3,14 @@
 ** A Reexamination of the Effect of Head Start on Child Mortality
 ** SUPPLEMENTAL APPENDIX
 ** Authors: Matias D. Cattaneo, Rocio Titiunik and Gonzalo Vazquez-Bare
-** Last update: 04-AGO-2020
+** Last update: 21-AGO-2020
 ********************************************************************************
-** SOFTWARE WEBSITE: https://sites.google.com/site/rdpackages/
+** SOFTWARE WEBSITE: https://rdpackages.github.io/
 ********************************************************************************
 ** TO INSTALL STATA PACKAGES:
-** RDROBUST: net install rdrobust, from(https://sites.google.com/site/rdpackages/rdrobust/stata) replace
-** RDDENSITY: net install rddensity, from(https://sites.google.com/site/rdpackages/rddensity/stata) replace
-** RDLOCRAND: net install rdlocrand, from(https://sites.google.com/site/rdpackages/rdlocrand/stata) replace
+** RDROBUST: net install rdrobust, from(https://raw.githubusercontent.com/rdpackages/rdrobust/master/stata) replace
+** RDDENSITY: net install rdlocrand, from(https://raw.githubusercontent.com/rdpackages/rdlocrand/master/stata) replace
+** RDLOCRAND: net install rddensity, from(https://raw.githubusercontent.com/rdpackages/rddensity/master/stata) replace
 ********************************************************************************
 ** NOTE: if you are using RDROBUST version 2020 or newer, the option 
 ** "masspoints(off) stdvars(on)" may be needed to replicate the results in

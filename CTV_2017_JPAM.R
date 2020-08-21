@@ -2,9 +2,9 @@
 ## Comparing Inference Approaches for RD Designs:
 ## A Reexamination of the Effect of Head Start on Child Mortality
 ## Authors: Matias Cattaneo, Rocio Titiunik, Gonzalo Vazquez-Bare
-## Last update: 04-AGO-2020
+## Last update: 21-AGO-2020
 ################################################################################
-## SOFTWARE WEBSITE: https://sites.google.com/site/rdpackages/
+## SOFTWARE WEBSITE: https://rdpackages.github.io/
 ################################################################################
 ## TO INSTALL/DOWNLOAD R PACKAGES/FUNCTIONS:
 ## RDROBUST: install.packages('rdrobust')

@@ -2,7 +2,7 @@
 
 This work was supported in part by the National Science Foundation through grants [SES-1357561](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1357561) and [SES-1459931](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1459931).
 
-## Website
+## Website 
 
 https://rdpackages.github.io/replication
 
