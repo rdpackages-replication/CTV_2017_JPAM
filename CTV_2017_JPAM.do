@@ -2,7 +2,7 @@
 ** Comparing Inference Approaches for RD Designs:
 ** A Reexamination of the Effect of Head Start on Child Mortality
 ** Authors: Matias D. Cattaneo, Rocio Titiunik and Gonzalo Vazquez-Bare
-** Last update: 21-AGO-2020
+** Last update: 23-FEB-2021
 ********************************************************************************
 ** SOFTWARE WEBSITE: https://rdpackages.github.io/
 ********************************************************************************
@@ -436,7 +436,7 @@ restore
 
 mat T = J(10,2,.)
 
-rdrandinf $Y R, wl(-$w0) wr($w0) reps($rreps) interfci(.95) p(0)
+rdrandinf $Y R, wl(-$w0) wr($w0) reps($rreps) interfci(.05) p(0)
 mat T[1,1] = r(p)
 mat T[2,1] = round(r(wr),.001)
 mat T[3,1] = round(r(obs_stat),.001)
@@ -446,13 +446,13 @@ mat T[8,1] = round(r(int_ub),.001)
 mat T[9,1] = r(N_left)
 mat T[10,1] = r(N_right)
 mat CI[1,2] = round(r(obs_stat),.001)
-rdsensitivity $Y R, wlist($w0) tlist(-5(.025)0) ci($w0) reps($rreps) nodraw 
+rdsensitivity $Y R, wlist($w0) wlist_left(-$w0) tlist(-5(.025)0) ci(-$w0 $w0) reps($rreps) nodraw 
 mat T[5,1] = round(r(ci_lb),.001)
 mat T[6,1] = round(r(ci_ub),.001)
 mat CI[1,1] = round(r(ci_lb),.001)
 mat CI[1,3] = round(r(ci_ub),.001)
 
-rdrandinf $Y R, wl(-$w0) wr($w0) reps($rreps) interfci(.95) p(1)
+rdrandinf $Y R, wl(-$w0) wr($w0) reps($rreps) interfci(.05) p(1)
 mat T[1,2] = r(p)
 mat T[2,2] = round(r(wr),.001)
 mat T[3,2] = round(r(obs_stat),.001)
@@ -462,7 +462,7 @@ mat T[8,2] = round(r(int_ub),.001)
 mat T[9,2] = r(N_left)
 mat T[10,2] = r(N_right)
 mat CI[2,2] = round(r(obs_stat),.001)
-rdsensitivity $Y R, wlist($w0) tlist(-5(.025)0) ci($w0) reps($rreps) nodraw p(1)
+rdsensitivity $Y R, wlist($w0) wlist_left(-$w0) tlist(-5(.025)0) ci(-$w0 $w0) reps($rreps) nodraw p(1)
 mat T[5,2] = round(r(ci_lb),.001)
 mat T[6,2] = round(r(ci_ub),.001)
 mat CI[2,1] = round(r(ci_lb),.001)

@@ -3,7 +3,7 @@
 ** A Reexamination of the Effect of Head Start on Child Mortality
 ** SUPPLEMENTAL APPENDIX
 ** Authors: Matias D. Cattaneo, Rocio Titiunik and Gonzalo Vazquez-Bare
-** Last update: 21-AGO-2020
+** Last update: 23-FEB-2021
 ********************************************************************************
 ** SOFTWARE WEBSITE: https://rdpackages.github.io/
 ********************************************************************************
@@ -301,7 +301,7 @@ mat Res = r(results)
 preserve
 svmat Res
 rename Res1 pvalues 
-rename Res5 w
+rename Res6 w
 gen red = pval if Res3==43
 twoway(scatter pval w)(scatter red w, msize(vlarge) msymbol(circle_hollow) mlwidth(medthick)), ///
 	xline(1.1,lpattern(shortdash)) ytitle(p-values) xtitle(bandwidth) ///
@@ -313,7 +313,7 @@ mat Res = r(results)
 preserve
 svmat Res
 rename Res1 pvalues 
-rename Res5 w
+rename Res6 w
 gen red = pval if Res3==53
 twoway(scatter pval w)(scatter red w, msize(vlarge) msymbol(circle_hollow) mlwidth(medthick)), ///
 	xline(1.5,lpattern(shortdash)) ytitle(p-values) xtitle(bandwidth) ///
@@ -325,7 +325,7 @@ mat Res = r(results)
 preserve
 svmat Res
 rename Res1 pvalues 
-rename Res5 w
+rename Res6 w
 gen red = pval if Res3==51
 twoway(scatter pval w)(scatter red w, msize(vlarge) msymbol(circle_hollow) mlwidth(medthick)), ///
 	xline(1.3,lpattern(shortdash)) ytitle(p-values) xtitle(bandwidth) ///
@@ -337,7 +337,7 @@ mat Res = r(results)
 preserve
 svmat Res
 rename Res1 pvalues 
-rename Res5 w
+rename Res6 w
 gen red = pval if Res3==81
 twoway(scatter pval w)(scatter red w, msize(vlarge) msymbol(circle_hollow) mlwidth(medthick)), ///
 	xline(2.7,lpattern(shortdash)) ytitle(p-values) xtitle(bandwidth) ///
@@ -458,10 +458,10 @@ foreach tabla of numlist 0 1 {
 	}
 }
 
-mat T50
-mat T60
-mat T51
-mat T61
+matlist T50
+matlist T60
+matlist T51
+matlist T61
 
 ********************************************************************************
 ** Figure SA-6: Sensitivity of Linear Adjustment Model

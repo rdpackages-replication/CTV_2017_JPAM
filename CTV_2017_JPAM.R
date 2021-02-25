@@ -2,7 +2,7 @@
 ## Comparing Inference Approaches for RD Designs:
 ## A Reexamination of the Effect of Head Start on Child Mortality
 ## Authors: Matias Cattaneo, Rocio Titiunik, Gonzalo Vazquez-Bare
-## Last update: 21-AGO-2020
+## Last update: 22-FEB-2021
 ################################################################################
 ## SOFTWARE WEBSITE: https://rdpackages.github.io/
 ################################################################################
@@ -434,16 +434,16 @@ Table6 <- array(NA,dim=c(10,2))
 
 reps <- 5000
 
-tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=c(.95,seq(-5,0,by=.025)),quietly=TRUE)
+tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=c(.05,seq(-5,0,by=.025)),quietly=TRUE)
 Table6[c(1:6,9,10),1] <- c(0,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$ci[1],tmp$ci[2],tmp$sumstats[2,1],tmp$sumstats[2,2])
 
-tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.95,quietly=TRUE)
+tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.05,quietly=TRUE)
 Table6[c(7,8),1] <- c(tmp$interf.ci[1],tmp$interf.ci[2])
 
-tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=c(.95,seq(-5,0,by=.025)),p=1,quietly=TRUE)
+tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=c(.05,seq(-5,0,by=.025)),p=1,quietly=TRUE)
 Table6[c(1:6,9,10),2] <- c(1,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$ci[1],tmp$ci[2],tmp$sumstats[2,1],tmp$sumstats[2,2])
 
-tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.95,p=1,quietly=TRUE)
+tmp <- rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.05,p=1,quietly=TRUE)
 Table6[c(7,8),2] <- c(tmp$interf.ci[1],tmp$interf.ci[2])
 
 round(Table6,3)

@@ -3,7 +3,7 @@
 # A Reexamination of the Effect of Head Start on Child Mortality
 # Supplemental Appendix
 # Authors: Matias Cattaneo, Rocio Titiunik, Gonzalo Vazquez-Bare
-# Last update: 21-AGO-2020
+# Last update: 23-FEB-2021
 ################################################################################
 ## SOFTWARE WEBSITE: https://rdpackages.github.io/
 ################################################################################
@@ -544,19 +544,19 @@ wreps <- 1000
 ## Remove the "approx" option to use randinf and replicate the results in the paper.
 
 tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='ksmirnov',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-plot(tmp$results[,1],tmp$results[,2],ylab='p-values',xlab='bandwidth')
+plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
 abline(v=1.1,lty='dashed')
 
 tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='ttest',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-plot(tmp$results[,1],tmp$results[,2],ylab='p-values',xlab='bandwidth')
+plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
 abline(v=1.5,lty='dashed')
 
 tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='ranksum',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-plot(tmp$results[,1],tmp$results[,2],ylab='p-values',xlab='bandwidth')
+plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
 abline(v=1.3,lty='dashed')
 
 tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='hotelling',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-plot(tmp$results[,1],tmp$results[,2],ylab='p-values',xlab='bandwidth')
+plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
 abline(v=2.7,lty='dashed')
 
 
