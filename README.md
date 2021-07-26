@@ -12,6 +12,8 @@ https://rdpackages.github.io/replication
 
 - Dataset: [csv](headstart.csv) | [dta](headstart.dta)
 
+- Python implementation: [main](CTV_2017_JPAM.py) | [appendix](CTV_2017_JPAM_Appendix.py)
+
 - R implementation: [main](CTV_2017_JPAM.R) | [appendix](CTV_2017_JPAM_Appendix.R)
 
 - Stata implementation: [main](CTV_2017_JPAM.do) | [appendix](CTV_2017_JPAM_Appendix.do)
