@@ -2,7 +2,7 @@
 ## Comparing Inference Approaches for RD Designs:
 ## A Reexamination of the Effect of Head Start on Child Mortality
 ## Authors: Matias Cattaneo, Rocio Titiunik, Gonzalo Vazquez-Bare
-## Python code created by Ricardo Masini
+## Python code created by Ricardo Masini and Rajita Chandak
 ## Last update: 26-JUL-2021
 ################################################################################
 ## SOFTWARE WEBSITE: https://rdpackages.github.io/
@@ -27,6 +27,7 @@
 ################################################################################
 
 from rdrobust import rdrobust, rdplot
+from rddensity import rddensity
 import pandas  as pd
 
 #############################################################
@@ -79,8 +80,8 @@ Plac = data[['mort_age59_injury_postHS',
 #############################################################
 
 ii = (Y<20) & (Y.notna()) & (Rraw.notna())
-rdplot(Y[ii],Rraw[ii],c=59.1984,nbins=3000)
-rdplot(Y[ii],Rraw[ii],c=59.1984)
+#rdplot(Y[ii],Rraw[ii],c=59.1984,nbins=3000)
+#rdplot(Y[ii],Rraw[ii],c=59.1984)
 
 ###################################################################
 ## Table 1: Binomial Tests
@@ -107,21 +108,24 @@ rdplot(Y[ii],Rraw[ii],c=59.1984)
 
 # Table2 = array(NA,dim=c(3,5))
 
-# tmp = rddensity(Rraw,c=cutoff)
+tmp = rddensity(Rraw.dropna(),c=cutoff)
+print(repr(tmp))
 # Table2[1,1] = tmp$h[[1]]
 # Table2[1,2] = tmp$h[[2]]
 # Table2[1,3] = tmp$N[[4]]
 # Table2[1,4] = tmp$N[[5]]
 # Table2[1,5] = tmp$test[[4]]
 
-# tmp = rddensity(Rraw,c=cutoff,bwselect='diff')   
+tmp = rddensity(Rraw.dropna(),c=cutoff,bwselect='diff')   
+print(repr(tmp))
 # Table2[2,1] = tmp$h[[1]]
 # Table2[2,2] = tmp$h[[2]]
 # Table2[2,3] = tmp$N[[4]]
 # Table2[2,4] = tmp$N[[5]]
 # Table2[2,5] = tmp$test[[4]]
 
-# tmp = rddensity(Rraw,c=cutoff,fitselect='restricted')
+tmp = rddensity(Rraw.dropna(),c=cutoff,fitselect='restricted')
+print(repr(tmp))
 # Table2[3,1] = tmp$h[[1]]
 # Table2[3,2] = tmp$h[[2]]
 # Table2[3,3] = tmp$N[[4]]
