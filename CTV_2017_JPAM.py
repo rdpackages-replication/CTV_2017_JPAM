@@ -350,127 +350,134 @@ print(tmp)
 
 #round(Table4,3)
 
-#############################################################
-## Figure 2: Window Selection and Outcome of Interest
-#############################################################
+############################################################
+# Figure 2: Window Selection and Outcome of Interest
+############################################################
 
-## Window selection
+# Window selection
 
-#Xrdw = cbind(data$mort_age59_related_preHS,X60)
-#tmp = rdwinselect(R,Xrdw,reps=1000,statistic="ksmirnov",wmin=.3,wstep=.2,level=.2)
+Xrdw = pd.concat([data['mort_age59_related_preHS'],X60], axis = 1)
+tmp = rdwinselect(R,Xrdw,reps=1000,statistic="ksmirnov",wmin=.3,wstep=.2,level=.2)
 
-## P-values plot
+# P-values plot
 
-#tmp = rdwinselect(R,Xrdw,reps=1000,statistic="ksmirnov",wmin=.3,wstep=.2,level=.2,nwin=40,plot=TRUE,quietly=TRUE)
+tmp = rdwinselect(R,Xrdw,reps=1000,statistic="ksmirnov",wmin=.3,wstep=.2,level=.2,nwindows=40,plot=True,quietly=True)
 
-## Scatter plot with means
-
-#w = 1.1
-#ir = which(abs(R)<=w & D==1 & !is.na(Y) & !is.na(R))
-#il = which(abs(R)<=w & D==0 & !is.na(Y) & !is.na(R))
-#ii = which(abs(R)<=w & !is.na(Y) & !is.na(R))
-
-
-#ml = mean(Y[il])
-#mr = mean(Y[ir])
-
-#plot(R[ii],Y[ii])
-#segments(-w,ml,0,ml,lty='dashed')
-#segments(0,mr,w,mr,lty='dashed')
-
-#############################################################
-## Table 5: Local-Randomization Methods
-#############################################################
-
-## Inference results
+# Scatter plot with means
 
 # w = 1.1
-# reps = 1000
+# ir = which(abs(R)<=w & D==1 & !is.na(Y) & !is.na(R))
+# il = which(abs(R)<=w & D==0 & !is.na(Y) & !is.na(R))
+# ii = which(abs(R)<=w & !is.na(Y) & !is.na(R))
 
-# Table5 = array(NA,dim=c(8,6))
+
+# ml = mean(Y[il])
+# mr = mean(Y[ir])
+
+# plot(R[ii],Y[ii])
+# segments(-w,ml,0,ml,lty='dashed')
+# segments(0,mr,w,mr,lty='dashed')
+
+############################################################
+# Table 5: Local-Randomization Methods
+############################################################
+
+# Inference results
+
+w = 1.1
+reps = 1000
+
+Table5 = np.full((8,6),np.nan)
 
 # # Outcome
 
-# tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,quietly=TRUE)
-# Table5[1:6,1] = c(0,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$sumstats[2,1],tmp$sumstats[2,2])
+tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps, quietly = True)
+Table5[:6,0] = [0,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
-# tmp = rdrandinf(Y,R,wl=-3.235,wr=3.235,reps=reps,quietly=TRUE)
-# Table5[1:6,2] = c(0,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$sumstats[2,1],tmp$sumstats[2,2])
+tmp = rdrandinf(Y,R,wl=-3.235,wr=3.235,reps=reps,quietly=True)
+Table5[:6,1] = [0,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
-# tmp = rdrandinf(Y,R,wl=-9,wr=9,reps=reps,quietly=TRUE)
-# Table5[1:6,3] = c(0,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$sumstats[2,1],tmp$sumstats[2,2])
+tmp = rdrandinf(Y,R,wl=-9,wr=9,reps=reps,quietly=True)
+Table5[:6,2] = [0,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
-# tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,p=1,quietly=TRUE)
-# Table5[1:6,4] = c(1,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$sumstats[2,1],tmp$sumstats[2,2])
+tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,p=1,quietly=True)
+Table5[:6,3] = [1,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
-# tmp = rdrandinf(Y,R,wl=-3.235,wr=3.235,reps=reps,p=1,quietly=TRUE)
-# Table5[1:6,5] = c(1,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$sumstats[2,1],tmp$sumstats[2,2])
+tmp = rdrandinf(Y,R,wl=-3.235,wr=3.235,reps=reps,p=1,quietly=True)
+Table5[:6,4] = [1,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
-# tmp = rdrandinf(Y,R,wl=-9,wr=9,reps=reps,p=1,quietly=TRUE)
-# Table5[1:6,6] = c(1,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$sumstats[2,1],tmp$sumstats[2,2])
+tmp = rdrandinf(Y,R,wl=-9,wr=9,reps=reps,p=1,quietly=True)
+Table5[:6,5] = [1,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
 # Placebo outcomes
 
-# for (i in 1:ncol(Plac)){
-#   tmp = rdrandinf(Plac[,i],R,wl=-w,wr=w,reps=reps,quietly=TRUE)
-#   Table5[6+i,1] = tmp$p.value
-#   tmp = rdrandinf(Plac[,i],R,wl=-3.235,wr=3.235,reps=reps,quietly=TRUE)
-#   Table5[6+i,2] = tmp$p.value
-#   tmp = rdrandinf(Plac[,i],R,wl=-9,wr=9,reps=reps,quietly=TRUE)
-#   Table5[6+i,3] = tmp$p.value
-#   tmp = rdrandinf(Plac[,i],R,wl=-w,wr=w,reps=reps,p=1,quietly=TRUE)
-#   Table5[6+i,4] = tmp$p.value
-#   tmp = rdrandinf(Plac[,i],R,wl=-3.235,wr=3.235,reps=reps,p=1,quietly=TRUE)
-#   Table5[6+i,5] = tmp$p.value
-#   tmp = rdrandinf(Plac[,i],R,wl=-9,wr=9,reps=reps,p=1,quietly=TRUE)
-#   Table5[6+i,6] = tmp$p.value
-# }
+for i in range(Plac.shape[1]):
+    tmp = rdrandinf(Plac.iloc[:,i],R,wl=-w,wr=w,reps=reps,quietly=True)
+    Table5[6+i,0] = tmp['p.value']
+    tmp = rdrandinf(Plac.iloc[:,i],R,wl=-3.235,wr=3.235,reps=reps,quietly=True)
+    Table5[6+i,1] = tmp['p.value']
+    tmp = rdrandinf(Plac.iloc[:,i],R,wl=-9,wr=9,reps=reps,quietly=True)
+    Table5[6+i,2] = tmp['p.value']
+    tmp = rdrandinf(Plac.iloc[:,i],R,wl=-w,wr=w,reps=reps,p=1,quietly=True)
+    Table5[6+i,3] = tmp['p.value']
+    tmp = rdrandinf(Plac.iloc[:,i],R,wl=-3.235,wr=3.235,reps=reps,p=1,quietly=True)
+    Table5[6+i,4] = tmp['p.value']
+    tmp = rdrandinf(Plac.iloc[:,i],R,wl=-9,wr=9,reps=reps,p=1,quietly=True)
+    Table5[6+i,5] = tmp['p.value']
 
-# round(Table5,3)
+np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
+print('Table 5 =\n ',Table5)
 
-#############################################################
-## Figure 3: Sensitivity to Window Length
-#############################################################
+############################################################
+# Figure 3: Sensitivity to Window Length
+############################################################
 
-# tmp = rdsensitivity(Y,R,wlist=seq(.3,10.1,by=.2),tlist=seq(-10,6.5,by=.25))
-# tmp = rdsensitivity(Y,R,wlist=seq(.3,10.1,by=.2),tlist=seq(-10,6.5,by=.25),p=1)
+tmp = rdsensitivity(Y,R,wlist=np.arange(.3,10.3,.2),tlist=np.arange(-10,6.75,.25))
+tmp = rdsensitivity(Y,R,wlist=np.arange(.3,10.3,.2),tlist=np.arange(-10,6.75,.25), p=1)
 
-#############################################################
-## Table 6: Local Randomization methods -- CI and interf
-#############################################################
+############################################################
+# Table 6: Local Randomization methods -- CI and interf
+############################################################
 
-# Table6 = array(NA,dim=c(10,2))
+Table6 = np.full((10,2),np.nan)
+reps = 5000
+w = 1.1
+ci = np.concatenate(([.05],np.arange(-5,0.025,.025)))
 
-# reps = 5000
+tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=ci,quietly=True)
+Table6[:6,0] = [0,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['ci'][0,0],tmp['ci'][0,1]]
+Table6[8:,0] = [tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
-# tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=c(.05,seq(-5,0,by=.025)),quietly=TRUE)
-# Table6[c(1:6,9,10),1] = c(0,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$ci[1],tmp$ci[2],tmp$sumstats[2,1],tmp$sumstats[2,2])
+tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.05,quietly=True)
+Table6[6:8,0] = [tmp['interf.ci'][0],tmp['interf.ci'][1]]
 
-# tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.05,quietly=TRUE)
-# Table6[c(7,8),1] = c(tmp$interf.ci[1],tmp$interf.ci[2])
+tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=ci,p=1,quietly=True)
+Table6[:6,1] = [1,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['ci'][0,0],tmp['ci'][0,1]]
+Table6[8:,1] = [tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
 
-# tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,ci=c(.05,seq(-5,0,by=.025)),p=1,quietly=TRUE)
-# Table6[c(1:6,9,10),2] = c(1,tmp$window[2],tmp$obs.stat,tmp$p.value,tmp$ci[1],tmp$ci[2],tmp$sumstats[2,1],tmp$sumstats[2,2])
-
-# tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.05,p=1,quietly=TRUE)
-# Table6[c(7,8),2] = c(tmp$interf.ci[1],tmp$interf.ci[2])
-
-# round(Table6,3)
+tmp = rdrandinf(Y,R,wl=-w,wr=w,reps=reps,interfci=.05,p=1,quietly=True)
+Table6[6:8,1] = [tmp['interf.ci'][0],tmp['interf.ci'][1]]
+                     
+np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
+print('Table 6 =\n ',Table6)
 
 #############################################################
 ## Table 7: Rosenbaum Bounds
 #############################################################
 
-# Table7 = array(NA,dim=c(7,9))
+Table7 = np.full((7,9),np.nan)
 
-# tmp = rdrbounds(Y,R,expgamma=c(1.1,1.2,1.3,1.4),wlist=seq(.3,1.5,by=.2),statistic='ttest',bound='upper',fmpval=TRUE,reps=5000)
-# Table7[1,3:9] = seq(.3,1.5,by=.2)
-# Table7[2:3,3:9] = tmp$p.values
-# Table7[4:7,3:9] = tmp$upper.bound
-# Table7[4:7,1] = log(c(1.1,1.2,1.3,1.4))
-# Table7[4:7,2] = c(1.1,1.2,1.3,1.4)
+expgamma = np.array([1.1,1.2,1.3,1.4])
+wlist = np.array([0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5])
+tmp = rdrbounds(Y,R,expgamma=expgamma,wlist=wlist,statistic='ttest',bound='upper',fmpval=True,reps=5000)
+Table7[0,2:] = wlist
+Table7[1:3,2:] = tmp['p.values']
+Table7[3:,2:] = tmp['upper.bound']
+Table7[3:,0] = np.log(expgamma)
+Table7[3:,1] = expgamma
 
-# round(Table7,3)
+np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
+print('Table 7 =\n ',Table7)
 
 #############################################################
 ## Figure 4: Summary of Results

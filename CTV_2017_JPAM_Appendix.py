@@ -345,279 +345,77 @@ for col in Plac.columns:
     rdrobust(Plac[col],R,p=4,q=5,h=9)
     rdrobust(Plac[col],R,p=4,q=5,h=18)
 
-###################################################################
-## Figure SA-5: Local Randomization Methods - Window Selection
-###################################################################
-
-# wreps <- 1000
-
-# ## NOTE: the plots are drawn using the asymptotic p-value to speed up the process.
-# ## Remove the "approx" option to use randinf and replicate the results in the paper.
-
-# tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='ksmirnov',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-# plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
-# abline(v=1.1,lty='dashed')
-
-# tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='ttest',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-# plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
-# abline(v=1.5,lty='dashed')
-
-# tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='ranksum',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-# plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
-# abline(v=1.3,lty='dashed')
-
-# tmp <- rdwinselect(R,cbind(Plac[,1],X60),reps=wreps,stat='hotelling',wmin=.3,wstep=.2,nwin=40,level=.2,quietly=TRUE,approx=TRUE)
-# plot(tmp$results[,7],tmp$results[,1],ylab='p-values',xlab='bandwidth')
-# abline(v=2.7,lty='dashed')
+##################################################################
+# Figure SA-5: Local Randomization Methods - Window Selection
+##################################################################
 
 
-###################################################################
-## Table SA-9 and SA-10: Local Randomization Methods
-###################################################################
+wreps = 1000
 
-# rreps <- 1000
+# NOTE: the plots are drawn using the asymptotic p-value to speed up the process.
+# Remove the "approx" option to use randinf and replicate the results in the paper.
 
-# TableSA9_0 <- array(NA,dim=c(13,5))
-# TableSA9_1 <- array(NA,dim=c(13,5))
+Xrdw = pd.concat([data['mort_age59_injury_postHS'],X60], axis = 1)
+tmp = rdwinselect(R, Xrdw, reps=wreps, statistic='ksmirnov', wmin=0.3, wstep=0.2, nwindows=40, level=0.2, quietly=True, approx=True)
+plt.plot(tmp['results']['w_right'].values, tmp['results']['p-value'].values)
+plt.xlabel('bandwidth')
+plt.ylabel('p-values')
+plt.axvline(x=1.1, linestyle='dashed')
+plt.show()
 
-# # p = 0
+tmp = rdwinselect(R, Xrdw, reps=wreps, statistic='ttest', wmin=0.3, wstep=0.2, nwindows=40, level=0.2, quietly=True, approx=True)
+plt.plot(tmp['results']['w_right'].values, tmp['results']['p-value'].values)
+plt.xlabel('bandwidth')
+plt.ylabel('p-values')
+plt.axvline(x=1.5, linestyle='dashed')
+plt.show()
 
-# tmp <- rdrandinf(Y,R,wl=-.9,wr=.9,reps=rreps,p=0)
-# TableSA9_0[1,1] <- 0
-# TableSA9_0[2,1] <- tmp$window[2]
-# TableSA9_0[3,1] <- tmp$obs.stat
-# TableSA9_0[4,1] <- tmp$p.value
-# TableSA9_0[5,1] <- tmp$sumstats[2,1]
-# TableSA9_0[6,1] <- tmp$sumstats[2,2]
+tmp = rdwinselect(R, Xrdw, reps=wreps, statistic='ranksum', wmin=0.3, wstep=0.2, nwindows=40, level=0.2, quietly=True, approx=True)
+plt.plot(tmp['results']['w_right'].values, tmp['results']['p-value'].values)
+plt.xlabel('bandwidth')
+plt.ylabel('p-values')
+plt.axvline(x=1.3, linestyle='dashed')
+plt.show()
 
-# tmp <- rdrandinf(Y,R,wl=-1.1,wr=1.1,reps=rreps,p=0)
-# TableSA9_0[1,2] <- 0
-# TableSA9_0[2,2] <- tmp$window[2]
-# TableSA9_0[3,2] <- tmp$obs.stat
-# TableSA9_0[4,2] <- tmp$p.value
-# TableSA9_0[5,2] <- tmp$sumstats[2,1]
-# TableSA9_0[6,2] <- tmp$sumstats[2,2]
+tmp = rdwinselect(R, Xrdw, reps=wreps, statistic='hotelling', wmin=0.3, wstep=0.2, nwindows=40, level=0.2, quietly=True, approx=True)
+plt.plot(tmp['results']['w_right'].values, tmp['results']['p-value'].values)
+plt.xlabel('bandwidth')
+plt.ylabel('p-values')
+plt.axvline(x=2.7, linestyle='dashed')
+plt.show()
 
-# tmp <- rdrandinf(Y,R,wl=-1.3,wr=1.3,reps=rreps,p=0)
-# TableSA9_0[1,3] <- 0
-# TableSA9_0[2,3] <- tmp$window[2]
-# TableSA9_0[3,3] <- tmp$obs.stat
-# TableSA9_0[4,3] <- tmp$p.value
-# TableSA9_0[5,3] <- tmp$sumstats[2,1]
-# TableSA9_0[6,3] <- tmp$sumstats[2,2]
 
-# tmp <- rdrandinf(Y,R,wl=-1.5,wr=1.5,reps=rreps,p=0)
-# TableSA9_0[1,4] <- 0
-# TableSA9_0[2,4] <- tmp$window[2]
-# TableSA9_0[3,4] <- tmp$obs.stat
-# TableSA9_0[4,4] <- tmp$p.value
-# TableSA9_0[5,4] <- tmp$sumstats[2,1]
-# TableSA9_0[6,4] <- tmp$sumstats[2,2]
+############################################################
+# Table SA-9 nnd SA-10: Local Randomization Methods
+############################################################
 
-# tmp <- rdrandinf(Y,R,wl=-2.7,wr=2.7,reps=rreps,p=0)
-# TableSA9_0[1,5] <- 0
-# TableSA9_0[2,5] <- tmp$window[2]
-# TableSA9_0[3,5] <- tmp$obs.stat
-# TableSA9_0[4,5] <- tmp$p.value
-# TableSA9_0[5,5] <- tmp$sumstats[2,1]
-# TableSA9_0[6,5] <- tmp$sumstats[2,2]
+rreps = 1000
+wlist  = np.array([0.9, 1.1, 1.3, 1.5, 2.7])
+ncol = len(wlist)
+nrow = 1 + len(wlist) + Plac.shape[1]
 
-# row <- 7
-# for(col in 1:ncol(Plac)){
-#   tmp <- rdrandinf(Plac[,col],R,wl=-.9,wr=.9,reps=rreps,p=0)
-#   TableSA9_0[row,1] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.1,wr=1.1,reps=rreps,p=0)
-#   TableSA9_0[row,2] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.3,wr=1.3,reps=rreps,p=0)
-#   TableSA9_0[row,3] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.5,wr=1.5,reps=rreps,p=0)
-#   TableSA9_0[row,4] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-2.7,wr=2.7,reps=rreps,p=0)
-#   TableSA9_0[row,5] <- tmp$p.value
-#   row <- row + 1
-# }
+TableSA9 = np.full((nrow , ncol,2), np.nan)
+TableSA10 = TableSA9.copy()
 
-# # p = 1
+for j in range(ncol):
+    for p in range(2):
+        tmp = rdrandinf(Y, R, wl=-wlist[j], wr=wlist[j], reps=rreps, p=p)
+        TableSA9[:(ncol+1),j,p] = [p,tmp['window'][1],tmp['obs.stat'][0],tmp['p.value'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
+        TableSA10[:(ncol+1),j,p] = [p,tmp['window'][1],tmp['obs.stat'][0],tmp['asy.pvalue'],tmp['sumstats'][1,0],tmp['sumstats'][1,1]]
+        for i in range(Plac.shape[1]):
+            TableSA9[i+ncol+1,j,p] = rdrandinf(Plac.iloc[:, i], R, wl=-wlist[j], wr=wlist[j], reps=rreps, p=p)['p.value']
+            TableSA10[i+ncol+1,j,p] = rdrandinf(Plac.iloc[:, i], R, wl=-wlist[j], wr=wlist[j], reps=rreps, p=p)['asy.pvalue']
 
-# tmp <- rdrandinf(Y,R,wl=-.9,wr=.9,reps=rreps,p=1)
-# TableSA9_1[1,1] <- 1
-# TableSA9_1[2,1] <- tmp$window[2]
-# TableSA9_1[3,1] <- tmp$obs.stat
-# TableSA9_1[4,1] <- tmp$p.value
-# TableSA9_1[5,1] <- tmp$sumstats[2,1]
-# TableSA9_1[6,1] <- tmp$sumstats[2,2]
+TableSA9_0 = TableSA9[:,:,0]
+TableSA9_1 = TableSA9[:,:,1]
+TableSA10_0 = TableSA10[:,:,0]
+TableSA10_1 = TableSA10[:,:,1]
 
-# tmp <- rdrandinf(Y,R,wl=-1.1,wr=1.1,reps=rreps,p=1)
-# TableSA9_1[1,2] <- 1
-# TableSA9_1[2,2] <- tmp$window[2]
-# TableSA9_1[3,2] <- tmp$obs.stat
-# TableSA9_1[4,2] <- tmp$p.value
-# TableSA9_1[5,2] <- tmp$sumstats[2,1]
-# TableSA9_1[6,2] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.3,wr=1.3,reps=rreps,p=1)
-# TableSA9_1[1,3] <- 1
-# TableSA9_1[2,3] <- tmp$window[2]
-# TableSA9_1[3,3] <- tmp$obs.stat
-# TableSA9_1[4,3] <- tmp$p.value
-# TableSA9_1[5,3] <- tmp$sumstats[2,1]
-# TableSA9_1[6,3] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.5,wr=1.5,reps=rreps,p=1)
-# TableSA9_1[1,4] <- 1
-# TableSA9_1[2,4] <- tmp$window[2]
-# TableSA9_1[3,4] <- tmp$obs.stat
-# TableSA9_1[4,4] <- tmp$p.value
-# TableSA9_1[5,4] <- tmp$sumstats[2,1]
-# TableSA9_1[6,4] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-2.7,wr=2.7,reps=rreps,p=1)
-# TableSA9_1[1,5] <- 1
-# TableSA9_1[2,5] <- tmp$window[2]
-# TableSA9_1[3,5] <- tmp$obs.stat
-# TableSA9_1[4,5] <- tmp$p.value
-# TableSA9_1[5,5] <- tmp$sumstats[2,1]
-# TableSA9_1[6,5] <- tmp$sumstats[2,2]
-
-# row <- 7
-# for(col in 1:ncol(Plac)){
-#   tmp <- rdrandinf(Plac[,col],R,wl=-.9,wr=.9,reps=rreps,p=1)
-#   TableSA9_1[row,1] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.1,wr=1.1,reps=rreps,p=1)
-#   TableSA9_1[row,2] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.3,wr=1.3,reps=rreps,p=1)
-#   TableSA9_1[row,3] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.5,wr=1.5,reps=rreps,p=1)
-#   TableSA9_1[row,4] <- tmp$p.value
-#   tmp <- rdrandinf(Plac[,col],R,wl=-2.7,wr=2.7,reps=rreps,p=1)
-#   TableSA9_1[row,5] <- tmp$p.value
-#   row <- row + 1
-# }
-
-# round(TableSA9_0,3)
-# round(TableSA9_1,3)
-
-# # Asymptotic
-
-# TableSA10_0 <- array(NA,dim=c(13,5))
-# TableSA10_1 <- array(NA,dim=c(13,5))
-
-# # p = 0
-
-# tmp <- rdrandinf(Y,R,wl=-.9,wr=.9,reps=rreps,p=0)
-# TableSA10_0[1,1] <- 0
-# TableSA10_0[2,1] <- tmp$window[2]
-# TableSA10_0[3,1] <- tmp$obs.stat
-# TableSA10_0[4,1] <- tmp$asy.pvalue
-# TableSA10_0[5,1] <- tmp$sumstats[2,1]
-# TableSA10_0[6,1] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.1,wr=1.1,reps=rreps,p=0)
-# TableSA10_0[1,2] <- 0
-# TableSA10_0[2,2] <- tmp$window[2]
-# TableSA10_0[3,2] <- tmp$obs.stat
-# TableSA10_0[4,2] <- tmp$asy.pvalue
-# TableSA10_0[5,2] <- tmp$sumstats[2,1]
-# TableSA10_0[6,2] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.3,wr=1.3,reps=rreps,p=0)
-# TableSA10_0[1,3] <- 0
-# TableSA10_0[2,3] <- tmp$window[2]
-# TableSA10_0[3,3] <- tmp$obs.stat
-# TableSA10_0[4,3] <- tmp$asy.pvalue
-# TableSA10_0[5,3] <- tmp$sumstats[2,1]
-# TableSA10_0[6,3] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.5,wr=1.5,reps=rreps,p=0)
-# TableSA10_0[1,4] <- 0
-# TableSA10_0[2,4] <- tmp$window[2]
-# TableSA10_0[3,4] <- tmp$obs.stat
-# TableSA10_0[4,4] <- tmp$asy.pvalue
-# TableSA10_0[5,4] <- tmp$sumstats[2,1]
-# TableSA10_0[6,4] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-2.7,wr=2.7,reps=rreps,p=0)
-# TableSA10_0[1,5] <- 0
-# TableSA10_0[2,5] <- tmp$window[2]
-# TableSA10_0[3,5] <- tmp$obs.stat
-# TableSA10_0[4,5] <- tmp$asy.pvalue
-# TableSA10_0[5,5] <- tmp$sumstats[2,1]
-# TableSA10_0[6,5] <- tmp$sumstats[2,2]
-
-# row <- 7
-# for(col in 1:ncol(Plac)){
-#   tmp <- rdrandinf(Plac[,col],R,wl=-.9,wr=.9,reps=rreps,p=0)
-#   TableSA10_0[row,1] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.1,wr=1.1,reps=rreps,p=0)
-#   TableSA10_0[row,2] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.3,wr=1.3,reps=rreps,p=0)
-#   TableSA10_0[row,3] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.5,wr=1.5,reps=rreps,p=0)
-#   TableSA10_0[row,4] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-2.7,wr=2.7,reps=rreps,p=0)
-#   TableSA10_0[row,5] <- tmp$asy.pvalue
-#   row <- row + 1
-# }
-
-# # p = 1
-
-# tmp <- rdrandinf(Y,R,wl=-.9,wr=.9,reps=rreps,p=1)
-# TableSA10_1[1,1] <- 1
-# TableSA10_1[2,1] <- tmp$window[2]
-# TableSA10_1[3,1] <- tmp$obs.stat
-# TableSA10_1[4,1] <- tmp$asy.pvalue
-# TableSA10_1[5,1] <- tmp$sumstats[2,1]
-# TableSA10_1[6,1] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.1,wr=1.1,reps=rreps,p=1)
-# TableSA10_1[1,2] <- 1
-# TableSA10_1[2,2] <- tmp$window[2]
-# TableSA10_1[3,2] <- tmp$obs.stat
-# TableSA10_1[4,2] <- tmp$asy.pvalue
-# TableSA10_1[5,2] <- tmp$sumstats[2,1]
-# TableSA10_1[6,2] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.3,wr=1.3,reps=rreps,p=1)
-# TableSA10_1[1,3] <- 1
-# TableSA10_1[2,3] <- tmp$window[2]
-# TableSA10_1[3,3] <- tmp$obs.stat
-# TableSA10_1[4,3] <- tmp$asy.pvalue
-# TableSA10_1[5,3] <- tmp$sumstats[2,1]
-# TableSA10_1[6,3] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-1.5,wr=1.5,reps=rreps,p=1)
-# TableSA10_1[1,4] <- 1
-# TableSA10_1[2,4] <- tmp$window[2]
-# TableSA10_1[3,4] <- tmp$obs.stat
-# TableSA10_1[4,4] <- tmp$asy.pvalue
-# TableSA10_1[5,4] <- tmp$sumstats[2,1]
-# TableSA10_1[6,4] <- tmp$sumstats[2,2]
-
-# tmp <- rdrandinf(Y,R,wl=-2.7,wr=2.7,reps=rreps,p=1)
-# TableSA10_1[1,5] <- 1
-# TableSA10_1[2,5] <- tmp$window[2]
-# TableSA10_1[3,5] <- tmp$obs.stat
-# TableSA10_1[4,5] <- tmp$asy.pvalue
-# TableSA10_1[5,5] <- tmp$sumstats[2,1]
-# TableSA10_1[6,5] <- tmp$sumstats[2,2]
-
-# row <- 7
-# for(col in 1:ncol(Plac)){
-#   tmp <- rdrandinf(Plac[,col],R,wl=-.9,wr=.9,reps=rreps,p=1)
-#   TableSA10_1[row,1] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.1,wr=1.1,reps=rreps,p=1)
-#   TableSA10_1[row,2] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.3,wr=1.3,reps=rreps,p=1)
-#   TableSA10_1[row,3] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-1.5,wr=1.5,reps=rreps,p=1)
-#   TableSA10_1[row,4] <- tmp$asy.pvalue
-#   tmp <- rdrandinf(Plac[,col],R,wl=-2.7,wr=2.7,reps=rreps,p=1)
-#   TableSA10_1[row,5] <- tmp$asy.pvalue
-#   row <- row + 1
-# }
-
-# round(TableSA10_0,3)
-# round(TableSA10_1,3)
+np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
+print('\nTable SA9.0 =\n ', TableSA9_0)
+print('\nTable SA9.1 =\n ', TableSA9_1)
+print('\nTable SA10.0 =\n ', TableSA10_0)
+print('\nTable SA10.1 =\n ', TableSA10_1)
 
 
 ###################################################################
